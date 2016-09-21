@@ -1,0 +1,38 @@
+{
+  "name": "ide",
+  "version": "1.0.0",
+  "description": "This is a web ide!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CloudDevTools/IDE.git"
+  },
+  "keywords": [
+    "web-ide"
+  ],
+  "author": "yubing",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CloudDevTools/IDE/issues"
+  },
+  "homepage": "https://github.com/CloudDevTools/IDE#readme",
+  "devDependencies": {
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-angular-filesort": "^1.1.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-connect": "^5.0.0",
+    "gulp-header-footer": "0.0.3",
+    "gulp-if": "^2.0.1",
+    "gulp-inject": "^4.1.0",
+    "gulp-load-plugins": "^1.3.0",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-minify-html": "^1.0.6",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^2.0.0",
+    "wiredep": "^4.0.0"
+  }
+}

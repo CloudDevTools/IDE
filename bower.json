@@ -1,0 +1,23 @@
+{
+  "name": "ide",
+  "description": "This is a web ide!",
+  "main": "index.js",
+  "authors": [
+    "yubing"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "web-ide"
+  ],
+  "homepage": "https://github.com/CloudDevTools/IDE",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.8"
+  }
+}
