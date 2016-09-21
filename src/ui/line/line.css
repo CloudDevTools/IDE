@@ -1,0 +1,24 @@
+.line-horizontal{
+    height: 2px;
+    width: 100%;
+}
+.line-horizontal-part1{
+     height: 50%;
+     width: 100%;
+    background-color: #282828;
+ }
+.line-horizontal-part2{
+    height: 50%;
+    width: 100%;
+    background-color: #555555;
+}
+.line-vertical-part1{
+    height: 100%;
+    width: 50%;
+    background-color: #282828;
+}
+.line-vertical-part2{
+    height: 100%;
+    width: 50%;
+    background-color: #555555;
+}
