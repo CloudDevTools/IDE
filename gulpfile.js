@@ -11,9 +11,19 @@ var pkg = require('./package.json');
 var headerfooter = require('gulp-header-footer');
 
 gulp.task("css",function(){
-    return gulp.src('src/**/*.css')
-        .pipe($.concat("index.css"))
-        .pipe(gulp.dest('.tmp/dist'));
+    var injectFiles = gulp.src([ './src/**/*.css','./src/**/*.less','!./src/index.less'], { read: false });
+    var injectOptions = {
+        transform: function(filePath) {
+            return '@import "' + filePath + '";';
+        },
+        starttag: '// injector',
+        endtag: '// endinjector',
+        addRootSlash: false
+    };
+    return gulp.src(['./src/index.less'])
+        .pipe($.inject(injectFiles, injectOptions))
+        .pipe($.less())
+        .pipe(gulp.dest('.tmp/dist'))
 });
 
 gulp.task("js",function(){
