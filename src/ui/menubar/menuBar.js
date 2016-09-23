@@ -4,13 +4,59 @@
 angular.module('ui-menuBar',[])
     .directive('menuBar',['actionManager',function(actionManager){
         function template(){
-            return "<div class='MenuBar'><div class='MenuBarContent'></div><line></line></div>"
+            return "<div class='menuBar'><div class='menuBarContent'><ul style='margin: 0;float: left;padding: 0;height: 100%'><menu-bar-item ng-repeat='item in items' action='{{item.id}}'></menu-bar-item></ul></div><line></line></div>"
         }
         return {
             restrict:'E',
             replace :false,
             scope:{
             },
-            template:template()
+            controller:['$scope',function($scope){
+                $scope.ctrl = {};
+                $scope.active = undefined;
+                this.select = function(id){
+                    if($scope.ctrl.hasOwnProperty($scope.active)){
+                        $scope.ctrl[$scope.active].close();
+                    }
+                    $scope.active = id;
+                    if($scope.ctrl.hasOwnProperty($scope.active)){
+                        $scope.ctrl[$scope.active].open();
+                    }
+                };
+
+                this.addMenuBarItem = function(id,ctrl){
+                    $scope.ctrl[id] = ctrl;
+                };
+
+                this.getActive = function(){
+                    return $scope.active;
+                }
+            }],
+            template:template(),
+            link:function($scope, elm, attrs){
+                $scope.item = [];
+                $scope.active = "";
+
+                function updateItem(newValue){
+                    var action = actionManager.getAction(newValue);
+                    if(!action){
+                        $scope.item = [];
+                        return;
+                    }
+                    var items = [];
+                    angular.forEach(action.children,function(ac){
+                        items.push({
+                            id:ac.id,
+                            text:ac.text,
+                            icon:ac.icon
+                        });
+                    });
+                    $scope.ctrl = {};
+                    $scope.active = undefined;
+                    $scope.items = items;
+                }
+
+                attrs.$observe("action",updateItem);
+            }
         }
     }]);

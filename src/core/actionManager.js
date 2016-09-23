@@ -34,38 +34,48 @@ angular.module('action.manager',[])
             }
         };
 
+        this.addAction = function(id,parent){
+            if(!id){
+                return null;
+            }
+            var action = new Action();
+            action.id = id;
+            action.parent = parent;
+            if(!!action.parent){
+                action.parent.children.push(action);
+            }
+            this.actionMap[id] = action;
+            return action;
+        };
+        this.delAction = function del(action){
+            if(!!action.parent){
+                action.parent.children.remove(action);
+            }
+            if(this.actionMap.hasOwnProperty(action.id)){
+                delete this.actionMap[action.id];
+            }
+            angular.forEach(action.children,function(ac){
+                del(ac);
+            });
+        };
+        this.getAction = function(id){
+            if(!id){
+                return null;
+            }
+            if(this.actionMap.hasOwnProperty(id)){
+                return this.actionMap[id];
+            }
+            else{
+                return null;
+            }
+        };
+
         this.$get=function(){
             return {
-                addAction:function(parent){
-                    var action = new Action();
-                    action.parent = parent;
-                    if(!!action.parent){
-                        action.parent.children.push(action);
-                    }
-                    return action;
-                },
-                delAction:function del(action){
-                    if(!!action.parent){
-                        action.parent.children.remove(action);
-                    }
-                    if(actionMap.hasOwnProperty(action.id)){
-                        delete actionMap[action.id];
-                    }
-                    angular.forEach(action.children,function(ac){
-                        del(ac);
-                    });
-                },
-                getAction:function(id){
-                    if(!id){
-                        return null;
-                    }
-                    if(actionMap.hasOwnProperty(id)){
-                        return actionMap[id];
-                    }
-                    else{
-                        return null;
-                    }
-                }
+                actionMap:this.actionMap,
+                addAction:this.addAction,
+                delAction:this.delAction,
+                getAction:this.getAction
             };
        }
     });

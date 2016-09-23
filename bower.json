@@ -19,6 +19,9 @@
   ],
   "dependencies": {
     "angular": "^1.5.8",
-    "less": "^2.7.1"
+    "less": "^2.7.1",
+    "angular-sanitize": "^1.5.8",
+    "bootstrap": "^3.3.7",
+    "angular-bootstrap": "angular-ui-bootstrap-bower#^2.1.3"
   }
 }

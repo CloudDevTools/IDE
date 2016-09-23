@@ -10,11 +10,11 @@ var del = require('del');
 var pkg = require('./package.json');
 var headerfooter = require('gulp-header-footer');
 
-gulp.task("css",function(){
-    var injectFiles = gulp.src([ './src/**/*.css','./src/**/*.less','!./src/index.less'], { read: false });
+gulp.task("less",function(){
+    var injectFiles = gulp.src(['./src/**/*.less','!./src/index.less'], { read: false });
     var injectOptions = {
         transform: function(filePath) {
-            return '@import "' + filePath + '";';
+            return '@import "' + filePath + '";\r\n';
         },
         starttag: '// injector',
         endtag: '// endinjector',
@@ -33,7 +33,7 @@ gulp.task("js",function(){
         .pipe(gulp.dest('.tmp/dist'));
 });
 
-gulp.task("build",['css','js'],function () {
+gulp.task("build",['js','less'],function () {
     var jsFiles = gulp.src(['.tmp/dist/**/*.js'])
         .pipe($.angularFilesort());
     var cssFiles = gulp.src(['.tmp/dist/**/*.css']);
@@ -50,7 +50,7 @@ gulp.task("build",['css','js'],function () {
         .pipe(connect.reload());
 });
 gulp.task('watch', function(){
-    gulp.watch(['src/**'], ['build']);
+    gulp.watch(['src/**','bower_components/**'], ['build']);
 });
 
 gulp.task("serve",['build','watch'],function(){
