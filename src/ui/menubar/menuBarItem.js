@@ -5,7 +5,7 @@ angular.module('ui-menuBarItem',['ngSanitize','ui.bootstrap'])
     .directive('menuBarItem',['$compile','actionManager',function($compile,actionManager){
         function template(){
             return "<li class='menuBarItem' ng-class='{\"menu-bar-item-active\":isOpen}' is-open='isOpen' uib-dropdown  on-toggle='onToggle()' ng-mouseenter='enter()'>" +
-                "<span uib-dropdown-toggle ><under-line-text text='{{action.text}}'></under-line-text></span>" +
+                "<div style='height: 100%;' uib-dropdown-toggle ><under-line-text text='{{action.text}}'></under-line-text></div>" +
                 "<menu action='{{action.id}}'></menu>" +
                 "</li>"
         }
