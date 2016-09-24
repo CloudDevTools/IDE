@@ -11,6 +11,8 @@ var pkg = require('./package.json');
 var imagemin = require('gulp-imagemin');
 var headerfooter = require('gulp-header-footer');
 
+var templateCache = require('gulp-angular-templatecache');
+
 gulp.task("less",function(){
     var injectFiles = gulp.src(['./src/**/*.less','!./src/index.less'], { read: false });
     var injectOptions = {
@@ -40,7 +42,15 @@ gulp.task("images",function(){
        .pipe(gulp.dest('.tmp/dist'))
 });
 
-gulp.task("build",['js','less','images'],function () {
+gulp.task('html', function () {
+    return gulp.src(['src/**/*.html','!src/index.html'])
+        .pipe(templateCache({
+            module:'app'
+        }))
+        .pipe(gulp.dest('.tmp/dist/'));
+});
+
+gulp.task("build",['js','less','images','html'],function () {
     var jsFiles = gulp.src(['.tmp/dist/**/*.js'])
         .pipe($.angularFilesort());
     var cssFiles = gulp.src(['.tmp/dist/**/*.css']);

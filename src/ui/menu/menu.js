@@ -11,9 +11,11 @@ angular.module("ui-menu",[])
             },
             require:['menu'],
             template:
-            "<ul class='pop-menu' uib-dropdown-menu>" +
+            "<div><window>" +
+            "<ul class='pop-menu'>" +
             "<menu-item ng-repeat='item in items' id='{{item}}'></menu-item>" +
-            "</ul>",
+            "</ul>" +
+            "</window></div>",
             controller:function($scope){
                 $scope.menuItems = {};
 
@@ -63,7 +65,12 @@ angular.module("ui-menu",[])
             require:['menuItem','?menu','?^menu'],
             template:
             "<li ng-class='{\"menu-bar-item-active\":select}' ng-mouseenter='enter()'>" +
-            "<div style='width: 24px;height: 20px;float: left;'><img ng-if='action.icon' style='margin-left:4px;width: 16px;height: 16px;' ng-src='{{action.icon}}'></div><under-line-text text='{{action.text}}'></under-line-text>" +
+            "<div uib-dropdown>" +
+            "<div style='width: 24px;height: 20px;float: left;'><img ng-if='action.icon' style='margin-left:4px;width: 16px;height: 16px;' ng-src='{{action.icon}}'></div>" +
+            "<under-line-text text='{{action.text}}'></under-line-text>" +
+            "<span ng-if='action.children.length > 0' class='right-arrow pull-right' style='margin-top: 6px;margin-right: 4px;'></span>" +
+            "<menu ng-if='action.children.length > 0' action='{{action.id}}'></menu>" +
+            "</div>" +
             "</li>",
             controller:function($scope){
                 this.select = function(){
@@ -90,14 +97,18 @@ angular.module("ui-menu",[])
                         $scope.action = {};
                         return;
                     }
-                    $scope.action.text = action.text;
-                    $scope.action.id = action.id;
-                    $scope.action.icon = action.icon;
+                    $scope.action=action;
                     menuCtrl.addMenu($scope.action.id,itemCtrl);
                 });
 
                 $scope.enter = function () {
-                    menuCtrl.select($scope.action.id);
+                    if($scope.action.separate){
+                        menuCtrl.select(undefined);
+
+                    }
+                    else{
+                        menuCtrl.select($scope.action.id);
+                    }
                 };
             }
         }

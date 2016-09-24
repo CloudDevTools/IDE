@@ -13,6 +13,7 @@ angular.module('action.manager',[])
             this.text = '';
             this.icon ='';
             this.listener = [];
+            this.separate = false;
 
         }
         Action.prototype = {
