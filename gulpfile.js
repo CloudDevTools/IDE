@@ -8,6 +8,7 @@ var wiredep = require('wiredep').stream;
 var $ = require('gulp-load-plugins')();
 var del = require('del');
 var pkg = require('./package.json');
+var imagemin = require('gulp-imagemin');
 var headerfooter = require('gulp-header-footer');
 
 gulp.task("less",function(){
@@ -33,7 +34,13 @@ gulp.task("js",function(){
         .pipe(gulp.dest('.tmp/dist'));
 });
 
-gulp.task("build",['js','less'],function () {
+gulp.task("images",function(){
+   return gulp.src("src/**/*.png")
+       .pipe(imagemin())
+       .pipe(gulp.dest('.tmp/dist'))
+});
+
+gulp.task("build",['js','less','images'],function () {
     var jsFiles = gulp.src(['.tmp/dist/**/*.js'])
         .pipe($.angularFilesort());
     var cssFiles = gulp.src(['.tmp/dist/**/*.css']);

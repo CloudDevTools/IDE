@@ -7,24 +7,24 @@ angular.module('action.manager',[])
         this.actionMap = {};
 
         function Action(){
+            this.children = [];
+            this.parent = null;
+            this.id = '';
+            this.text = '';
+            this.icon ='';
+            this.listener = [];
 
         }
         Action.prototype = {
-            children:[],
-            parent:null,
-            id:'',
-            text:'',
-            icon:'',
             trigger:function(){
                 angular.forEach(this.listener,function(l){
-                    if(angular.isFunction(l.trigger)){
-                        l.trigger();
+                    if(angular.isFunction(l)){
+                        l();
                     }
                 });
             },
-            listener:[],
             addListener:function(l){
-                if(this.listener.indexOf(l)){
+                if(this.listener.indexOf(l) != -1){
                     return;
                 }
                 this.listener.push(l);

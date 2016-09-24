@@ -5,13 +5,8 @@ angular.module('ui-menuBarItem',['ngSanitize','ui.bootstrap'])
     .directive('menuBarItem',['$compile','actionManager',function($compile,actionManager){
         function template(){
             return "<li class='menuBarItem' ng-class='{\"menu-bar-item-active\":isOpen}' is-open='isOpen' uib-dropdown  on-toggle='onToggle()' ng-mouseenter='enter()'>" +
-                "<span uib-dropdown-toggle ng-bind-html='action.text'></span>" +
-                "<ul class='dropdown-menu pop-menu' uib-dropdown-menu>" +
-                "<li>123</li>" +
-                "<li>abcdfe</li>" +
-                "<li>Code</li>" +
-                "<li>123</li>" +
-                "</ul>" +
+                "<span uib-dropdown-toggle ><under-line-text text='{{action.text}}'></under-line-text></span>" +
+                "<menu action='{{action.id}}'></menu>" +
                 "</li>"
         }
         return {
@@ -61,6 +56,9 @@ angular.module('ui-menuBarItem',['ngSanitize','ui.bootstrap'])
                             ctrl.select(undefined);
                         }
                     }
+
+                    var action = actionManager.getAction($scope.action.id);
+                    action.trigger();
                 };
 
                 $scope.enter = function () {
@@ -68,23 +66,6 @@ angular.module('ui-menuBarItem',['ngSanitize','ui.bootstrap'])
                         ctrl.select($scope.action.id);
                     }
                 };
-
-                // scope.$parent.$watch("active",function (newValue,oldValue) {
-                //     if(newValue === $scope.action.id){
-                //         $scope.isOpen = true;
-                //     }
-                //     else if(oldValue == $scope.action.id){
-                //         $scope.isOpen = false;
-                //     }
-                // });
-                // $scope.$watch("isOpen",function(newValue){
-                //     if(newValue){
-                //         e.addClass("menu-bar-item-active");
-                //     }
-                //     else{
-                //         e.removeClass("menu-bar-item-active");
-                //     }
-                // });
             }
         }
     }]);
