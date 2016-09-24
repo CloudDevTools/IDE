@@ -7,4 +7,9 @@ angular.module('ui',['ui-menuBar','ui-line','ui-menuBarItem','ui-core','ui-menu'
             var scope = angular.element(e.target).scope();
             $rootScope.$broadcast("window-click",e,scope);
         });
+        document.oncontextmenu = function(e){
+            var scope = angular.element(e.target).scope();
+            $rootScope.$broadcast("window-right-click",e,scope);
+            return false;
+        }
     }]);

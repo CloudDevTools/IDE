@@ -91,6 +91,13 @@ angular.module('ui-menuBarItem',['ngSanitize','ui.bootstrap'])
                     }
                 });
                 $scope.$on("window-click",function(e,t,s){
+                    doUnselect(s);
+                });
+                $scope.$on("window-right-click",function(e,t,s){
+                    doUnselect(s);
+                });
+
+                function doUnselect(s){
                     var sc = s;
                     while(sc){
                         if(sc.$id == $scope.$id){
@@ -106,7 +113,7 @@ angular.module('ui-menuBarItem',['ngSanitize','ui.bootstrap'])
                         var action = actionManager.getAction($scope.action.id);
                         action.trigger();
                     }
-                });
+                }
             }
         }
     }]);
