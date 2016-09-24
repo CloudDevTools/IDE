@@ -76,6 +76,7 @@ angular.module('ui-menuBarItem',['ngSanitize','ui.bootstrap'])
                     }
                 };
 
+
                 e.on("keydown",function(e){
                     if(e.ctrlKey || e.shiftKey || e.altKey){
                         return;
@@ -88,7 +89,24 @@ angular.module('ui-menuBarItem',['ngSanitize','ui.bootstrap'])
                             ctrl.nextMenu($scope.action.id);
                         }
                     }
-                })
+                });
+                $scope.$on("window-click",function(e,t,s){
+                    var sc = s;
+                    while(sc){
+                        if(sc.$id == $scope.$id){
+                            break;
+                        }
+                        sc = sc.$parent;
+                    }
+                    if(sc){
+                        return;
+                    }
+                    if(ctrl.getActive() === $scope.action.id){
+                        ctrl.select(undefined);
+                        var action = actionManager.getAction($scope.action.id);
+                        action.trigger();
+                    }
+                });
             }
         }
     }]);

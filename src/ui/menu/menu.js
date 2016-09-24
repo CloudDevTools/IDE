@@ -3,19 +3,14 @@
  */
 
 angular.module("ui-menu",[])
-    .directive("menu",['actionManager',function(actionManager){
+    .directive("uiMenu",['actionManager',function(actionManager){
         return {
             restrict:'E',
             replace :true,
             scope:{
             },
-            require:['menu'],
-            template:
-            "<div><window>" +
-            "<ul class='pop-menu'>" +
-            "<menu-item ng-repeat='item in items' id='{{item}}'></menu-item>" +
-            "</ul>" +
-            "</window></div>",
+            require:['uiMenu'],
+            templateUrl:"ui/menu/menu.html",
             controller:function($scope){
                 $scope.menuItems = {};
 
@@ -56,22 +51,14 @@ angular.module("ui-menu",[])
             }
         }
     }])
-    .directive("menuItem",['actionManager',function (actionManager) {
+    .directive("uiMenuItem",['actionManager',function (actionManager) {
         return {
             restrict:'E',
             replace :true,
             scope:{
             },
-            require:['menuItem','?menu','?^menu'],
-            template:
-            "<li ng-class='{\"menu-bar-item-active\":select}' ng-mouseenter='enter()'>" +
-            "<div uib-dropdown>" +
-            "<div style='width: 24px;height: 20px;float: left;'><img ng-if='action.icon' style='margin-left:4px;width: 16px;height: 16px;' ng-src='{{action.icon}}'></div>" +
-            "<under-line-text text='{{action.text}}'></under-line-text>" +
-            "<span ng-if='action.children.length > 0' class='right-arrow pull-right' style='margin-top: 6px;margin-right: 4px;'></span>" +
-            "<menu ng-if='action.children.length > 0' action='{{action.id}}'></menu>" +
-            "</div>" +
-            "</li>",
+            require:['uiMenuItem','?uiMenu','?^uiMenu'],
+            templateUrl:"ui/menu/menuItem.html",
             controller:function($scope){
                 this.select = function(){
                     $scope.select = true;

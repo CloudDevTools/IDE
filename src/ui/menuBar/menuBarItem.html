@@ -1,9 +1,9 @@
 <li class="ui-menu-bar-item" tabindex = '0' ng-click="click()" ng-mouseenter="enter()">
-    <div>
+    <div class="ui-menu-bar-item-div">
         <under-line-text text='{{action.text}}'>
 
         </under-line-text>
     </div>
-    <menu>
-    </menu>
+    <ui-menu ng-show="select" action="{{action.id}}">
+    </ui-menu>
 </li>
