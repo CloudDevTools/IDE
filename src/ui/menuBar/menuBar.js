@@ -8,6 +8,7 @@ angular.module('ui-menuBar',[])
             replace :false,
             scope:{
             },
+            require:['uiMenuBar'],
             controller:['$scope',function($scope){
                 $scope.ctrl = {};
                 $scope.list = [];
@@ -34,34 +35,9 @@ angular.module('ui-menuBar',[])
                     return $scope.active;
                 };
 
-                this.prevMenu = function(id){
-                    var index = $scope.list.indexOf(id);
-                    index -= 1;
-                    if(index == -1){
-                        index = $scope.list.length - 1;
-                    }
-                    else if(index == -2){
-                        index = 0;
-                    }
-                    if(index < 0){
-                        return;
-                    }
-                    this.select($scope.list[index]);
-                };
-                this.nextMenu = function(id){
-                    var index = $scope.list.indexOf(id);
-                    index += 1;
-                    if(index == $scope.list.length){
-                        index = 0;
-                    }
-                    if(index >= $scope.list.length){
-                        return;
-                    }
-                    this.select($scope.list[index]);
-                };
             }],
             templateUrl:"ui/menuBar/menuBar.html",
-            link:function($scope, elm, attrs){
+            link:function($scope, e, attrs,ctrls){
                 $scope.item = [];
                 $scope.active = "";
 

@@ -18,6 +18,8 @@ angular.module('ui-menuBarItem',['ngSanitize','ui.bootstrap'])
                 };
                 this.unSelect = function(){
                     $scope.select = false;
+                    var action = actionManager.getAction($scope.action.id);
+                    action.trigger();
                     if (!$rootScope.$$phase) {
                         $scope.$apply();
                     }
@@ -50,7 +52,6 @@ angular.module('ui-menuBarItem',['ngSanitize','ui.bootstrap'])
                 $scope.$watch("select",function(){
                     if($scope.select){
                         e.addClass("ui-menu-bar-item-active");
-                        $(e).focus();
                     }
                     else{
                         e.removeClass("ui-menu-bar-item-active");
@@ -71,33 +72,17 @@ angular.module('ui-menuBarItem',['ngSanitize','ui.bootstrap'])
                         if(ctrl.getActive() === $scope.action.id){
                             ctrl.select(undefined);
                         }
-                        var action = actionManager.getAction($scope.action.id);
-                        action.trigger();
                     }
                 };
 
-
-                e.on("keydown",function(e){
-                    if(e.ctrlKey || e.shiftKey || e.altKey){
-                        return;
-                    }
-                    else{
-                        if(e.keyCode == 37){
-                            ctrl.prevMenu($scope.action.id);
-                        }
-                        else if(e.keyCode == 39){
-                            ctrl.nextMenu($scope.action.id);
-                        }
-                    }
-                });
                 $scope.$on("window-click",function(e,t,s){
-                    doUnselect(s);
+                    doUnSelect(s);
                 });
                 $scope.$on("window-right-click",function(e,t,s){
-                    doUnselect(s);
+                    doUnSelect(s);
                 });
 
-                function doUnselect(s){
+                function doUnSelect(s){
                     var sc = s;
                     while(sc){
                         if(sc.$id == $scope.$id){
@@ -110,8 +95,6 @@ angular.module('ui-menuBarItem',['ngSanitize','ui.bootstrap'])
                     }
                     if(ctrl.getActive() === $scope.action.id){
                         ctrl.select(undefined);
-                        var action = actionManager.getAction($scope.action.id);
-                        action.trigger();
                     }
                 }
             }
