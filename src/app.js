@@ -45,6 +45,8 @@ angular.module('app',['core','ui'])
             action = actionManagerProvider.addAction("open-action",file_menu_group);
             action.text = "&Open ...";
             action.icon = "./img/actions/menu-open.png";
+            action = actionManagerProvider.addAction("new-project-separate-action",file_menu_group);
+            action.separate = true;
         }
 
         function initNewMenuAction(){

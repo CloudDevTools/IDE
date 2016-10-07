@@ -3,6 +3,7 @@
 @base-dark-color:#282828;
 @normal-text-color:#bbb;
 @select-background-color:#4B6EAF;
+@toolbar-border-color:#303334;
 
 body,html{
   width: 100%;
@@ -29,6 +30,18 @@ body,html{
   border-top: 4px solid transparent;
   border-right: 4px solid;
   border-bottom: 4px solid transparent;
+}
+
+.ui-layout-row > .ui-splitbar{
+  background: rgba(0,0,0,0);
+  border-top: 1px solid @base-dark-color;
+  cursor: ns-resize;
+}
+
+.ui-layout-column > .ui-splitbar{
+  background: rgba(0,0,0,0);
+  border-left: 1px solid @base-dark-color;
+  cursor: ew-resize;
 }
 
 // injector

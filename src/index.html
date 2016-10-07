@@ -11,8 +11,18 @@
     <!-- endinject -->
 </head>
 <body>
-    <div id="ide-frame-background" ng-app="app">
-        <ui-menu-bar action="main-menu-group"></ui-menu-bar>
+    <div id="ide-frame-background" ng-app="app" style="height: 100%;overflow-y: hidden;">
+        <div id="header-layout">
+            <ui-menu-bar action="main-menu-group"></ui-menu-bar>
+            <ui-toolbar></ui-toolbar>
+        </div>
+        <div style="position: relative;width: 100%;" ng-style="frameStyle">
+            <div ui-layout="{dividerSize:5,disableToggle:true}" style="overflow-y: hidden">
+                <div ui-layout-container></div>
+                <div ui-layout-container="central"></div>
+                <div ui-layout-container></div>
+            </div>
+        </div>
     </div>
 </body>
 
