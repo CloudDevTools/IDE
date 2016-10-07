@@ -1,5 +1,32 @@
 .ui-toolbar{
-  height:32px;
+  height:30px;
   width: 100%;
   border-bottom: 1px solid @toolbar-border-color;
+  list-style: none;
+  margin-left: 0;
+  padding-left:0;
+}
+.ui-toolbar-item{
+  height: 24px;
+  width: 24px;
+  margin-top: 2px;
+  margin-left: 2px;
+  cursor: pointer;
+  float: left;
+}
+
+.ui-toolbar-separate{
+  height: 20px;
+  width: 1px;
+  float: left;
+  margin-left:2px;
+  margin-right: 2px;
+  margin-top: 4px;
+  border-left: 1px dashed #8c8c8c;
+}
+
+.ui-toolbar-item:hover{
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  background-color: rgba(192,192,192,0.4);
 }

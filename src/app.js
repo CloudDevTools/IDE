@@ -11,6 +11,7 @@ angular.module('app',['core','ui'])
         initMainMenuAction();
         initFileMenuGroupAction();
         initNewMenuAction();
+        initMainToolbar();
 
         function initMainMenuAction() {
             var main_menu_group=actionManagerProvider.addAction("main-menu-group",null);
@@ -47,6 +48,12 @@ angular.module('app',['core','ui'])
             action.icon = "./img/actions/menu-open.png";
             action = actionManagerProvider.addAction("new-project-separate-action",file_menu_group);
             action.separate = true;
+            action = actionManagerProvider.addAction("save-all-action",file_menu_group);
+            action.text = "&Save All";
+            action.icon = "./img/actions/menu-saveall.png";
+            action = actionManagerProvider.addAction("synchronize-action",file_menu_group);
+            action.text = "S&ynchronize";
+            action.icon = "./img/actions/refresh.png";
         }
 
         function initNewMenuAction(){
@@ -54,6 +61,15 @@ angular.module('app',['core','ui'])
             var action = actionManagerProvider.addAction("new-project-action",new_menu);
             action.text = "Project ...";
             action = actionManagerProvider.addAction("new-project-separate-action",new_menu);
+            action.separate = true;
+        }
+
+        function initMainToolbar(){
+            var main_toolbar_group=actionManagerProvider.addAction("main-toolbar-group",null);
+            main_toolbar_group.addChildren(actionManagerProvider.getAction("open-action"));
+            main_toolbar_group.addChildren(actionManagerProvider.getAction("save-all-action"));
+            main_toolbar_group.addChildren(actionManagerProvider.getAction("synchronize-action"));
+            var action = actionManagerProvider.addAction("new-project-separate-action",main_toolbar_group);
             action.separate = true;
         }
     });

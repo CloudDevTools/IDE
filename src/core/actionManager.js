@@ -8,12 +8,20 @@ angular.module('action.manager',[])
 
         function Action(){
             this.children = [];
-            this.parent = null;
+            this.parent = [];
             this.id = '';
             this.text = '';
             this.icon ='';
             this.listener = [];
             this.separate = false;
+            this.addChildren = function(action){
+                this.children.push(action);
+                action.parent.push(this);
+            };
+            this.removeChildren = function(action){
+                this.children.splice(this.children.indexOf(action),1);
+                action.parent.splice(action.parent.indexOf(this),1);
+            };
 
         }
         Action.prototype = {
@@ -29,9 +37,6 @@ angular.module('action.manager',[])
                     return;
                 }
                 this.listener.push(l);
-            },
-            removeListener:function(l){
-                this.listener.remove(l);
             }
         };
 
@@ -41,17 +46,17 @@ angular.module('action.manager',[])
             }
             var action = new Action();
             action.id = id;
-            action.parent = parent;
-            if(!!action.parent){
-                action.parent.children.push(action);
+            if(!!parent){
+                action.parent.push(parent);
+                parent.children.push(action);
             }
             this.actionMap[id] = action;
             return action;
         };
         this.delAction = function del(action){
-            if(!!action.parent){
-                action.parent.children.remove(action);
-            }
+            angular.forEach(action.parent,function(ac){
+                ac.removeChildren(action);
+            });
             if(this.actionMap.hasOwnProperty(action.id)){
                 delete this.actionMap[action.id];
             }
