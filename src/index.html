@@ -18,9 +18,13 @@
         </div>
         <div style="position: relative;width: 100%;" ng-style="frameStyle">
             <div ui-layout="{dividerSize:5,disableToggle:true}" style="overflow-y: hidden">
-                <div ui-layout-container></div>
-                <div ui-layout-container="central"></div>
-                <div ui-layout-container></div>
+                <div ui-layout-container>
+                    <div ui-layout="{dividerSize:5,disableToggle:true,flow:'column'}" style="overflow-y: hidden">
+                        <div ui-layout-container size="20%"></div>
+                        <div ui-layout-container></div>
+                    </div>
+                </div>
+                <div ui-layout-container size="30% "></div>
             </div>
         </div>
     </div>

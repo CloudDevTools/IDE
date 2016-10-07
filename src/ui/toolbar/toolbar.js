@@ -23,7 +23,8 @@ angular.module("ui-toolbar",[])
                            'id':ac.id,
                            'text':ac.text,
                            'icon':ac.icon,
-                           'separate':ac.separate
+                           'separate':ac.separate,
+                           'tooltip':ac.tooltip
                        } ;
                        items.push(item);
                     });

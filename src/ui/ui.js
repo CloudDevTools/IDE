@@ -1,7 +1,7 @@
 /**
  * Created by yubing on 2016/9/21.
  */
-angular.module('ui',['ui-menuBar','ui-line','ui-menuBarItem','ui-core','ui-menu','ui-window','ui.layout','ui-toolbar'])
+angular.module('ui',['ui-menuBar','ui-line','ui-menuBarItem','ui-core','ui-menu','ui-window','ui.layout','ui-toolbar','ui.bootstrap.tooltip'])
     .run(['$rootScope','$document',function($rootScope,$document){
         $document.on("click",function(e){
             var scope = angular.element(e.target).scope();

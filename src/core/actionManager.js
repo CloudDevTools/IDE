@@ -12,6 +12,7 @@ angular.module('action.manager',[])
             this.id = '';
             this.text = '';
             this.icon ='';
+            this.tooltip = '';
             this.listener = [];
             this.separate = false;
             this.addChildren = function(action){

@@ -45,15 +45,18 @@ angular.module('app',['core','ui'])
             action.text = "New";
             action = actionManagerProvider.addAction("open-action",file_menu_group);
             action.text = "&Open ...";
+            action.tooltip = "Open";
             action.icon = "./img/actions/menu-open.png";
             action = actionManagerProvider.addAction("new-project-separate-action",file_menu_group);
             action.separate = true;
             action = actionManagerProvider.addAction("save-all-action",file_menu_group);
             action.text = "&Save All";
+            action.tooltip = "Save All";
             action.icon = "./img/actions/menu-saveall.png";
             action = actionManagerProvider.addAction("synchronize-action",file_menu_group);
             action.text = "S&ynchronize";
             action.icon = "./img/actions/refresh.png";
+            action.tooltip = "Synchronize";
         }
 
         function initNewMenuAction(){
