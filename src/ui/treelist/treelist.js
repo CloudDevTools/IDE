@@ -26,8 +26,8 @@ angular.module("ui-treeList",[])
                 $scope.marginLeft = '2px';
                 $scope.$watch("item",function(newValue){
 
-                    var type = newValue.type || '';
-                    $scope.fileIcon = iconManager(type);
+                    var icon = newValue.icon || '';
+                    $scope.fileIcon = iconManager(icon);
                 });
             }
         }
