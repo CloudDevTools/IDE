@@ -75,4 +75,4 @@ angular.module('app',['core','ui'])
             var action = actionManagerProvider.addAction("new-project-separate-action",main_toolbar_group);
             action.separate = true;
         }
-    });
+    })

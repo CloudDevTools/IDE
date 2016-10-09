@@ -7,7 +7,8 @@ angular.module('icon.manager',[])
             var iconMap = {
                 'dir':'img/files/tree-dir.png',
                 'js':'img/files/javaScript.png',
-                'css':'img/files/css.png'
+                'css':'img/files/css.png',
+                'text':'img/files/text.png'
             };
             return function(type){
                 if(iconMap.hasOwnProperty(type)){

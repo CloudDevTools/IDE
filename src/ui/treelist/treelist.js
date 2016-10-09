@@ -19,13 +19,12 @@ angular.module("ui-treeList",[])
             restrict:'E',
             replace :true,
             scope:{
-                item:'='
+                item:'=',
+                marginLeft:'='
             },
             templateUrl:'ui/treelist/treelistitem.html',
             link:function($scope,e,attr){
-                $scope.marginLeft = '2px';
                 $scope.$watch("item",function(newValue){
-
                     var icon = newValue.icon || '';
                     $scope.fileIcon = iconManager(icon);
                 });

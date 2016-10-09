@@ -1,8 +1,10 @@
-<ul class="tree-list-item">
-    <li style="height: 100%" ng-style="{'margin-left':marginLeft}">
-        <img ng-src="{{item.children.length>0?(expend?'img/files/treeDownArrow.png':'img/files/treeRightArrow.png'):'img/empty.png'}}" style="height: 12px;width: 12px;margin-top: 4px;" ng-click="expend=!expend">
-        <img ng-src="{{fileIcon}}">
-        <div class="ui-tree-list-item-text">{{item.text}}</div>
+<ul>
+    <li class="tree-list-item">
+        <div style="height: 100%" ng-style="{'margin-left':marginLeft+'px'}">
+            <img ng-src="{{item.children.length>0?(expend?'img/files/treeDownArrow.png':'img/files/treeRightArrow.png'):'img/empty.png'}}" style="margin-right:8px;height: 12px;width: 12px;margin-top: 4px;" ng-click="expend=!expend">
+            <img ng-src="{{fileIcon}}">
+            <div class="ui-tree-list-item-text">{{item.text}}</div>
+        </div>
     </li>
-    <ui-tree-item ng-repeat="child in item.children" item = "child" ng-show="expend"></ui-tree-item>
+    <ui-tree-item ng-repeat="child in item.children" item = "child" ng-show="expend" margin-left="marginLeft+20"></ui-tree-item>
 </ul>
