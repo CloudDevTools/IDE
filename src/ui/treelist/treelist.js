@@ -10,6 +10,18 @@ angular.module("ui-treeList",[])
                 items:'='
             },
             templateUrl:'ui/treelist/treelist.html',
+            controller:function($scope){
+                $scope.select = undefined;
+                this.select = function(scope){
+                    if($scope.select != undefined){
+                        $scope.select.select = false;
+                    }
+                    $scope.select = scope;
+                    if($scope.select != undefined){
+                        $scope.select.select = true;
+                    }
+                }
+            },
             link:function($scope,e,attr){
             }
         }
@@ -22,12 +34,34 @@ angular.module("ui-treeList",[])
                 item:'=',
                 marginLeft:'='
             },
+            require:['uiTreeItem','?^uiTreeList'],
             templateUrl:'ui/treelist/treelistitem.html',
-            link:function($scope,e,attr){
+            controller:function($scope){
+                $scope.makeExpend = function(){
+                    $scope.expend = !$scope.expend;
+                }
+            },
+            link:function($scope,e,attr,ctrls){
+                var li = $(e.find('li')[0]);
+                var itemCtrl = ctrls[0];
+                var treeCtrl = ctrls[1];
+
+                li.on("mousedown",function(){
+                   treeCtrl.select($scope);
+                });
+
                 $scope.$watch("item",function(newValue){
                     var icon = newValue.icon || '';
                     $scope.fileIcon = iconManager(icon);
                 });
+                $scope.$watch("select",function(v){
+                    if($scope.select){
+                        li.addClass("ui-tree-list-item-select");
+                    }
+                    else{
+                        li.removeClass("ui-tree-list-item-select");
+                    }
+                })
             }
         }
     });

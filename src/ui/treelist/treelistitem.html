@@ -1,7 +1,7 @@
 <ul>
-    <li class="tree-list-item">
+    <li class="tree-list-item" ng-dblclick="makeExpend()">
         <div style="height: 100%" ng-style="{'margin-left':marginLeft+'px'}">
-            <img ng-src="{{item.children.length>0?(expend?'img/files/treeDownArrow.png':'img/files/treeRightArrow.png'):'img/empty.png'}}" style="margin-right:8px;height: 12px;width: 12px;margin-top: 4px;" ng-click="expend=!expend">
+            <img ng-src="{{item.children.length>0?(expend?'img/files/treeDownArrow.png':'img/files/treeRightArrow.png'):'img/empty.png'}}" style="margin-right:8px;height: 12px;width: 12px;margin-top: 4px;" ng-click="makeExpend()">
             <img ng-src="{{fileIcon}}">
             <div class="ui-tree-list-item-text">{{item.text}}</div>
         </div>
