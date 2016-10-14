@@ -14,18 +14,95 @@ angular.module("ui-treeList",[])
             controller:function($scope){
                 $scope.select = undefined;
                 this.select = function(scope){
+                    s(scope);
+                };
+
+                $scope.prevItem = function(){
+                    if($scope.items.length == 0){
+                        return;
+                    }
+                    if($scope.select == undefined){
+                        s($scope.items[0].scope);
+                        return;
+                    }
+                    if($scope.select.parent == undefined){
+                        return;
+                    }
+                    var index = $scope.select.parent.children.indexOf($scope.select.item);
+                    if(index  > 0){
+                        s(getLastItem($scope.select.parent.children[index - 1]).scope);
+                    }
+                    else{
+                        s($scope.select.parent.scope);
+                    }
+                };
+
+                $scope.nextItem = function(){
+                    if($scope.items.length == 0){
+                        return;
+                    }
+                    if($scope.select == undefined){
+                        s($scope.items[0].scope);
+                        return;
+                    }
+                    if($scope.select.item.hasOwnProperty("children") && $scope.select.item.children.length > 0 && $scope.select.expend){
+                        s($scope.select.item.children[0].scope);
+                        return;
+                    }
+                    if($scope.select.parent == undefined){
+                        return;
+                    }
+                    var i = getNextItem($scope.select.item);
+                    if(i){
+                        s(i.scope);
+                    }
+                };
+
+                function s(scope) {
                     if($scope.select != undefined){
                         $scope.select.select = false;
+                        $scope.select.$apply();
                     }
                     $scope.select = scope;
                     if($scope.select != undefined){
                         $scope.select.select = true;
+                        $scope.select.$apply();
+                    }
+                }
+
+                function getLastItem(item){
+                    if(!item.children || item.children.length == 0){
+                        return item;
+                    }
+                    if(!item.scope.expend){
+                        return item;
+                    }
+                    return getLastItem(item.children[item.children.length - 1]);
+                }
+                function getNextItem(item){
+                    if(!item.scope.parent){
+                        return undefined;
+                    }
+                    var index = item.scope.parent.children.indexOf(item);
+                    if(index === item.scope.parent.children.length - 1){
+                        return getNextItem(item.scope.parent);
+                    }
+                    else{
+                        return item.scope.parent.children[index + 1];
                     }
                 }
             },
             link:function($scope,e,attr){
                 e.on('keydown',function(e){
-                    console.log(e);
+                    if(e.altKey || e.shiftKey || e.ctrlKey || e.metaKey){
+                        return;
+                    }
+                    if(e.keyCode === 40){
+                        $scope.nextItem();
+                    }
+                    else if(e.keyCode ===38){
+                        $scope.prevItem();
+                    }
                 })
             }
         }
@@ -37,7 +114,8 @@ angular.module("ui-treeList",[])
             scope:{
                 item:'=',
                 marginLeft:'=',
-                expend:'='
+                expend:'=',
+                parent:'='
             },
             require:['?^uiTreeList'],
             templateUrl:'ui/treelist/treelistitem.html',
