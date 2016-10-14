@@ -58,6 +58,17 @@ angular.module("ui-treeList",[])
                     }
                 };
 
+                $scope.toParent = function(){
+                    if($scope.select == undefined){
+                        s($scope.items[0].scope);
+                        return;
+                    }
+                    if(!$scope.select.item.scope.parent){
+                        return;
+                    }
+                    s($scope.select.item.scope.parent.scope);
+                };
+
                 function s(scope) {
                     if($scope.select != undefined){
                         $scope.select.select = false;
@@ -103,6 +114,40 @@ angular.module("ui-treeList",[])
                     else if(e.keyCode ===38){
                         $scope.prevItem();
                     }
+                    else if(e.keyCode == 39){
+                        if(!$scope.select){
+                            $scope.nextItem();
+                            return;
+                        }
+                        if($scope.select.item.children && $scope.select.item.children.length > 0){
+                            if(!$scope.select.expend){
+                                $scope.select.makeExpend();
+                            }
+                            else{
+                                $scope.nextItem();
+                            }
+                        }
+                    }
+                    else if(e.keyCode == 37){
+                        if(!$scope.select){
+                            $scope.nextItem();
+                            return;
+                        }
+                        if($scope.select.item.children && $scope.select.item.children.length > 0 && $scope.select.expend){
+                            $scope.select.makeExpend();
+                        }
+                        else{
+                            $scope.toParent();
+                        }
+                    }
+                    else if(e.keyCode == 13){
+                        if(!$scope.select){
+                            return;
+                        }
+                        if($scope.select.item.children && $scope.select.item.children.length > 0){
+                            $scope.select.makeExpend();
+                        }
+                    }
                 })
             }
         }
@@ -126,6 +171,9 @@ angular.module("ui-treeList",[])
                         angular.forEach($scope.item.children,function (item) {
                             item.scope.expend = false;
                         })
+                    }
+                    if(!$scope.$root.$$phase){
+                        $scope.$apply();
                     }
                 };
             },
