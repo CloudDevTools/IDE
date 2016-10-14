@@ -6,5 +6,5 @@
             <div class="ui-tree-list-item-text">{{item.text}}</div>
         </div>
     </li>
-    <ui-tree-item ng-repeat="child in item.children" item = "child" ng-show="expend" margin-left="marginLeft+20"></ui-tree-item>
+    <ui-tree-item ng-repeat="child in item.children" item = "child" ng-show="expend" expend="false" margin-left="marginLeft+20"></ui-tree-item>
 </ul>

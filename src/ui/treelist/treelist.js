@@ -7,7 +7,8 @@ angular.module("ui-treeList",[])
             restrict:'E',
             replace :true,
             scope:{
-                items:'='
+                items:'=',
+                firstItemExpend:'='
             },
             templateUrl:'ui/treelist/treelist.html',
             controller:function($scope){
@@ -32,9 +33,10 @@ angular.module("ui-treeList",[])
             replace :true,
             scope:{
                 item:'=',
-                marginLeft:'='
+                marginLeft:'=',
+                expend:'='
             },
-            require:['uiTreeItem','?^uiTreeList'],
+            require:['?^uiTreeList'],
             templateUrl:'ui/treelist/treelistitem.html',
             controller:function($scope){
                 $scope.makeExpend = function(){
@@ -43,8 +45,7 @@ angular.module("ui-treeList",[])
             },
             link:function($scope,e,attr,ctrls){
                 var li = $(e.find('li')[0]);
-                var itemCtrl = ctrls[0];
-                var treeCtrl = ctrls[1];
+                var treeCtrl = ctrls[0];
 
                 li.on("mousedown",function(){
                    treeCtrl.select($scope);

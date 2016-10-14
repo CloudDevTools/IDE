@@ -8,7 +8,7 @@ angular.module('ui-projectFileListView',[])
             replace :true,
             scope:{
             },
-            template:'<div style="height: 100%;width: 100%"><ui-tree-list items="items"></ui-tree-list></div>',
+            template:'<div style="height: 100%;width: 100%"><ui-tree-list items="items" first-item-expend="true"></ui-tree-list></div>',
             link:function($scope,e,attr){
             },
             controller:function($scope,api){
