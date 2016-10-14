@@ -24,6 +24,9 @@ angular.module("ui-treeList",[])
                 }
             },
             link:function($scope,e,attr){
+                e.on('keydown',function(e){
+                    console.log(e);
+                })
             }
         }
     })
@@ -41,7 +44,12 @@ angular.module("ui-treeList",[])
             controller:function($scope){
                 $scope.makeExpend = function(){
                     $scope.expend = !$scope.expend;
-                }
+                    if(!$scope.expend){
+                        angular.forEach($scope.item.children,function (item) {
+                            item.scope.expend = false;
+                        })
+                    }
+                };
             },
             link:function($scope,e,attr,ctrls){
                 var li = $(e.find('li')[0]);
@@ -54,6 +62,7 @@ angular.module("ui-treeList",[])
                 $scope.$watch("item",function(newValue){
                     var icon = newValue.icon || '';
                     $scope.fileIcon = iconManager(icon);
+                    $scope.item.scope = $scope;
                 });
                 $scope.$watch("select",function(v){
                     if($scope.select){
